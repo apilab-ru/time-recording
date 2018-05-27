@@ -40,6 +40,10 @@ export class TimeBoardComponent implements OnChanges {
     this.list.push(this.genItem());
   }
 
+  clear(): void {
+    this.list = [];
+  }
+
   genItem(): TimeItem {
     return {
       from: {
