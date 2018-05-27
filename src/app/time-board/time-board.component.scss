@@ -1,0 +1,23 @@
+.total-line {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 5px;
+
+  .total {
+    margin-left: 10px;
+  }
+
+}
+
+.calced-line {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #f1f1f1;
+  padding: 5px;
+
+  div {
+    margin-right: 10px;
+  }
+}

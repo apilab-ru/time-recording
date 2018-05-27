@@ -1,0 +1,23 @@
+<div class="col">
+  <input class="time-input" type="text" inputMask [inputMaskPreset]="timePreset" [(ngModel)]="from">
+  <button class="icon" mat-icon-button color="accent" (click)="setFrom()">
+    <mat-icon aria-label="Example icon-button with a heart icon">input</mat-icon>
+  </button>
+</div>
+
+<span class="separator">-</span>
+
+<div class="col">
+  <input class="time-input" type="text" inputMask [inputMaskPreset]="timePreset" [(ngModel)]="to">
+  <button class="icon" mat-icon-button color="accent" (click)="setTo()">
+    <mat-icon aria-label="Example icon-button with a heart icon">input</mat-icon>
+  </button>
+</div>
+
+
+<input type="text" class="task"  [(ngModel)]="item.task">
+
+<span class="calc">{{ getTime() }}</span>
+
+<button (click)="delete()" class="btn-del" mat-mini-fab color="warn">X</button>
+

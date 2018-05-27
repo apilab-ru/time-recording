@@ -1,0 +1,24 @@
+<app-time-item
+  [item]="item"
+  (deleteItem)="deleteItem(i)"
+  *ngFor="let item of list;let i = index"></app-time-item>
+
+<div class="total-line">
+  Всего <span class="total">{{ getTotal() }}</span>
+</div>
+
+<button mat-raised-button color="primary" (click)="addItem()">
+  + Добавить
+</button>
+<button mat-raised-button color="accent" (click)="reCalc()">
+  Расчитать
+</button>
+<button mat-raised-button color="primary" (click)="saveList()">
+  Сохранить
+</button>
+
+<h2> Рассчитано </h2>
+<div class="calced-line" *ngFor="let item of calculated">
+  <div>{{ item.task }}</div>
+  <div>{{ getHourAndMinutes(item.time) }}</div>
+</div>
