@@ -62,9 +62,9 @@ export class TimeBoardComponent implements OnChanges {
     this.list.splice(index, 1);
   }
 
-  getTotal(): number {
+  getTotal(): string {
     const minutes = this.list.reduce((prev, next) => this.timeService.getTime(next) + prev, 0);
-    return minutes / 60;
+    return (minutes / 60).toFixed(2);
   }
 
   saveList(): void {

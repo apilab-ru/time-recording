@@ -34,13 +34,19 @@ export class TimeService {
 
   getTime(item: TimeItem): number {
     const from = item.from.hours * 60 + item.from.minutes;
-    const to = item.to.hours * 60 + item.to.minutes;
+    let to = item.to.hours * 60 + item.to.minutes;
+
+    if(to === 0) {
+      to = this.getNow().hours * 60 + this.getNow().minutes;
+    }
 
     if (isNaN(from) || isNaN(to)) {
       return 0;
     }
 
-    return to - from;
+    const div = to - from;
+
+    return (div > 0) ? div : 0;
   }
 
 }

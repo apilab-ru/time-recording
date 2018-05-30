@@ -37,7 +37,13 @@ export class ItemComponent {
   }
 
   get from(): string {
-    return this._lastFrom !== null ? this._lastFrom : this.timeService.getStringTime(this.item.from);
+    if(this._lastFrom) {
+      const time = this.timeService.getTimeFromString(this._lastFrom);
+      if(time.hours === this.item.from.hours && time.minutes === this.item.from.minutes) {
+        return this._lastFrom;
+      }
+    }
+    return this.timeService.getStringTime(this.item.from);
   }
 
   set from(value: string) {
@@ -46,7 +52,14 @@ export class ItemComponent {
   }
 
   get to(): string {
-    return this._lastTo !== null ? this._lastTo : this.timeService.getStringTime(this.item.to);
+    if(this._lastTo) {
+      const time = this.timeService.getTimeFromString(this._lastTo);
+      console.log('time', time, this._lastTo)
+      if(time.hours === this.item.to.hours && time.minutes === this.item.to.minutes) {
+        return this._lastTo;
+      }
+    }
+    return this.timeService.getStringTime(this.item.to);
   }
 
   set to(value: string) {
