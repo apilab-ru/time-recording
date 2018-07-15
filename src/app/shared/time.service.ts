@@ -1,47 +1,67 @@
 import { Injectable } from '@angular/core';
-import { Time, TimeItem } from '../time-board/time-board.component';
+import { TimeItem } from '../time-board/time-board.component';
+import { TimeDto } from './time/time';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TimeService {
 
+  private readonly minutesInHour = 60;
+
   constructor() {
   }
 
-  getStringTime(time: Time): string {
+  getStringTime(time: TimeDto): string {
     if (!time) {
       return '';
     }
-    return `${time.hours}:${time.minutes}`;
+    return `${time.hour}:${time.minute.toString().padStart(2, '0')}`;
   }
 
-  getTimeFromString(value: string): Time {
+  getTimeFromString(value: string): TimeDto {
     const [hours, minutes] = value.split(':');
+
+    if (!hours && hours !== '0' && !minutes) {
+      return null;
+    }
+
     return {
-      hours: +hours,
-      minutes: +minutes
+      hour: +hours,
+      minute: +minutes
     };
   }
 
-  getNow(): Time {
+  getNow(): TimeDto {
     const time = new Date();
     return {
-      hours: time.getHours(),
-      minutes: time.getMinutes()
+      hour: time.getHours(),
+      minute: time.getMinutes()
     };
+  }
+
+  getMinutes(time: TimeDto): number {
+    if (!time) {
+      return 0;
+    }
+
+    return time.hour * this.minutesInHour + time.minute;
   }
 
   getTime(item: TimeItem): number {
-    const from = item.from.hours * 60 + item.from.minutes;
-    let to = item.to.hours * 60 + item.to.minutes;
+    const from = this.getMinutes(item.from);
+    let to = this.getMinutes(item.to);
 
-    if(to === 0) {
-      to = this.getNow().hours * 60 + this.getNow().minutes;
+    if (to === 0) {
+      to = this.getMinutes(this.getNow());
     }
 
     if (isNaN(from) || isNaN(to)) {
       return 0;
+    }
+
+    if (to < from) {
+      to += 24 * this.minutesInHour;
     }
 
     const div = to - from;

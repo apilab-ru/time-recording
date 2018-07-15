@@ -1,0 +1,9 @@
+<input class="time-input"
+       type="text"
+       inputMask
+       [inputMaskPreset]="timePreset"
+       [(ngModel)]="valueString">
+<span class="icon" mat-icon-button color="accent" (click)="setNow()">
+  <mat-icon>input</mat-icon>
+</span>
+
