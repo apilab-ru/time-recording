@@ -1,14 +1,11 @@
-import { Component, OnChanges } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { TimeService } from '../shared/time.service';
-
-export interface Time {
-  hours: number;
-  minutes: number;
-}
+import { TimeDto } from '../shared/time/time';
+import { DOCUMENT } from '@angular/common';
 
 export interface TimeItem {
-  from: Time;
-  to: Time;
+  from: TimeDto;
+  to: TimeDto;
   task: string;
 }
 
@@ -22,18 +19,22 @@ export interface Calc {
   templateUrl: './time-board.component.html',
   styleUrls: ['./time-board.component.scss']
 })
-export class TimeBoardComponent implements OnChanges {
+export class TimeBoardComponent implements OnInit {
 
   list: TimeItem[] = [];
 
   calculated: Calc[] = [];
 
-  constructor(private timeService: TimeService) {
+  constructor(private timeService: TimeService,
+              @Inject(DOCUMENT) private document: Document) {
     this.addItem();
-    this.addItem();
-    this.addItem();
-
     this.getList();
+
+    // this.document.addEventListener('keydown', this.keyboardListener);
+  }
+
+  ngOnInit(): void {
+    // Определяем браузеры
   }
 
   addItem(): void {
@@ -46,25 +47,24 @@ export class TimeBoardComponent implements OnChanges {
 
   genItem(): TimeItem {
     return {
-      from: {
-        hours: 0,
-        minutes: 0
-      },
-      to: {
-        hours: 0,
-        minutes: 0
-      },
+      from: this.timeService.getNow(),
+      to: null,
       task: ''
     };
   }
 
   deleteItem(index: number): void {
     this.list.splice(index, 1);
+    this.update();
+  }
+
+  update(): void {
+    this.saveList();
   }
 
   getTotal(): string {
     const minutes = this.list.reduce((prev, next) => this.timeService.getTime(next) + prev, 0);
-    return (minutes / 60).toFixed(2);
+    return this.getHourAndMinutes(minutes);
   }
 
   saveList(): void {
@@ -76,10 +76,6 @@ export class TimeBoardComponent implements OnChanges {
     if (list) {
       this.list = JSON.parse(list);
     }
-  }
-
-  ngOnChanges(): void {
-    this.saveList();
   }
 
   reCalc(): void {
@@ -104,9 +100,20 @@ export class TimeBoardComponent implements OnChanges {
   }
 
   getHourAndMinutes(minutes: number): string {
-    const hour = Math.floor(minutes / 60);
-    const min = (minutes - (hour * 60)).toString().padStart(2, '0');
-    return `0${hour}:${min}`;
+    const hour = Math.floor(minutes / 60).toString().padStart(2, '0');
+    const min = (minutes - (+hour * 60)).toString().padStart(2, '0');
+    return `${hour}:${min}`;
+  }
+
+  delete(index: number): void {
+    this.calculated.splice(index, 1);
+  }
+
+  private keyboardListener = (event: KeyboardEvent) => {
+    if (event.code === 'KeyS') {
+      event.preventDefault();
+      this.saveList();
+    }
   }
 
 }

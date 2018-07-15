@@ -3,26 +3,6 @@
   align-items: center;
   margin-bottom: 5px;
 
-  .col {
-    position: relative;
-
-    .time-input {
-      width: 44px;
-      font-size: 16px;
-      border: 1px solid #3f51b5;
-      line-height: 30px;
-      padding: 0 40px 0 8px;
-      border-radius: 2px;
-    }
-
-    .icon {
-      position: absolute;
-      top: -4px;
-      right: 0px;
-      width: 30px;
-    }
-  }
-
   .task {
     margin-left: 20px;
     font-size: 16px;

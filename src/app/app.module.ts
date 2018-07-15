@@ -12,6 +12,7 @@ import { StubComponent } from './stub/stub.component';
 import { ItemComponent } from './time-board/item/item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputMaskModule } from 'angular5-input-mask';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { InputMaskModule } from 'angular5-input-mask';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    InputMaskModule
+    InputMaskModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
