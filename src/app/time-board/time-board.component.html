@@ -26,8 +26,12 @@
 <h3> Рассчитано </h3>
 <table>
   <tr class="calced-line" *ngFor="let item of calculated; let i=index">
-    <td class="name">{{ item.task }}</td>
-    <td>{{ getHourAndMinutes(item.time) }}</td>
+    <td class="copy-elem name" [appCopyClick]="item.task">
+      {{ item.task }}
+    </td>
+    <td class="copy-elem" [appCopyClick]="getHourAndMinutes(item.time)">
+      {{ getHourAndMinutes(item.time) }}
+    </td>
     <td class="cell-delete">
       <button (click)="delete(i)" class="btn-del">X</button>
     </td>
