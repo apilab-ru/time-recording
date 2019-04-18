@@ -20,7 +20,7 @@ export class HistoryService {
   }
 
   prevent(): State {
-    if (this.minStateLength) {
+    if (this.stateLog.length >= this.minStateLength) {
       this.stateLog.pop();
       return this.stateLog.pop().data;
     } else {
