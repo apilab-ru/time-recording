@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TimeItem } from '../time-board.component';
-import { TimeService } from '../../shared/time.service';
+import { TimeService } from '../../../shared/time.service';
+import { TimeItem } from '../../../models/time-item';
 
 @Component({
   selector: 'app-time-item',
@@ -11,7 +11,7 @@ export class ItemComponent {
 
   @Output() deleteItem = new EventEmitter();
 
-  @Output() updateItem = new EventEmitter();
+  @Output() updateItem = new EventEmitter<TimeItem>();
 
   @Input() item: TimeItem = {
     from: null,
@@ -31,7 +31,7 @@ export class ItemComponent {
   }
 
   onChange(): void {
-    this.updateItem.emit();
+    this.updateItem.emit(this.item);
   }
 
 }

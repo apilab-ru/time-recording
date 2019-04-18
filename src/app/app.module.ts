@@ -1,22 +1,42 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
 import { SharedModule } from './shared/shared.module';
-import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { META_REDUCERS, MetaReducer, StoreModule } from '@ngrx/store';
+import { reducers, State } from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { TimesEffects } from './store/effects/times';
+import { HistoryService } from './shared/history.service';
+import { logger } from './store/reducers/logger';
+
+export function getMetaReducers(
+  historyService: HistoryService
+): MetaReducer<State>[] {
+  return [
+    logger(historyService)
+  ];
+}
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-    AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     SharedModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([TimesEffects]),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: META_REDUCERS,
+      deps: [HistoryService],
+      useFactory: getMetaReducers,
+    },
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

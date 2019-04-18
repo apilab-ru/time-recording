@@ -12,12 +12,12 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import { CopyClickDirective } from './copy-click.directive';
-import { MyNavComponent } from '../my-nav/my-nav.component';
-import { TimeBoardComponent } from '../time-board/time-board.component';
-import { StubComponent } from '../stub/stub.component';
-import { ItemComponent } from '../time-board/item/item.component';
+import { TimeBoardComponent } from '../components/time-board/time-board.component';
+import { ItemComponent } from '../components/time-board/item/item.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { RouterModule } from '@angular/router';
+import { TimeBoardListComponent } from '../components/time-board/list/list.component';
+import { TotalTimePipe } from './total-time.pipe';
 
 @NgModule({
   imports: [
@@ -41,17 +41,16 @@ import { RouterModule } from '@angular/router';
     CopyClickDirective,
     TimeComponent,
     ItemComponent,
-    MyNavComponent,
-    StubComponent,
     TimeBoardComponent,
+    TimeBoardListComponent,
+    TotalTimePipe,
   ],
   exports: [
     CopyClickDirective,
     TimeComponent,
     ItemComponent,
-    MyNavComponent,
-    StubComponent,
     TimeBoardComponent,
+    TotalTimePipe,
   ]
 })
 export class SharedModule {

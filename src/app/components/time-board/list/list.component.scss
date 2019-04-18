@@ -1,0 +1,42 @@
+:host {
+  display: table;
+
+  .total-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 15px;
+
+    .total {
+      margin-left: 10px;
+    }
+
+  }
+
+  .calced-line {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #f1f1f1;
+    padding: 5px;
+
+    .name {
+      margin-right: 10px;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    max-width: 400px;
+    margin: 30px 0;
+  }
+
+  .cell-delete {
+    padding-left: 20px;
+  }
+
+  .copy-elem {
+    cursor: pointer;
+  }
+}

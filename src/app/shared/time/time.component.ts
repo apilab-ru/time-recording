@@ -1,5 +1,5 @@
 import { Component, forwardRef } from '@angular/core';
-import { TimeDto } from './time';
+import { TimeDto } from '../../models/time';
 import { TimeService } from '../time.service';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputmaskPreset, PipeResult } from 'angular5-input-mask';

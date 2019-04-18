@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { TimeItem } from '../time-board/time-board.component';
-import { TimeDto } from './time/time';
+import { TimeDto } from '../models/time';
+import { TimeItem } from '../models/time-item';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +8,6 @@ import { TimeDto } from './time/time';
 export class TimeService {
 
   private readonly minutesInHour = 60;
-
-  constructor() {
-  }
 
   getStringTime(time: TimeDto): string {
     if (!time) {
@@ -30,6 +27,12 @@ export class TimeService {
       hour: +hours,
       minute: +minutes
     };
+  }
+
+  getStringHourMinute(minutes: number): string {
+    const hour = Math.floor(minutes / 60).toString().padStart(2, '0');
+    const min = (minutes - (+hour * 60)).toString().padStart(2, '0');
+    return `${hour}:${min}`;
   }
 
   getNow(): TimeDto {
@@ -67,6 +70,29 @@ export class TimeService {
     const div = to - from;
 
     return (div > 0) ? div : 0;
+  }
+
+  getList(): TimeItem[] {
+    const data = localStorage['today'];
+    let list = [];
+    try {
+      list = JSON.parse(data);
+    } catch (e) {
+    }
+
+    if (!list || !list.length) {
+      list = [this.genItem()];
+    }
+
+    return list;
+  }
+
+  genItem(): TimeItem {
+    return {
+      from: this.getNow(),
+      to: null,
+      task: ''
+    };
   }
 
 }
