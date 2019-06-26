@@ -8,7 +8,7 @@ import * as fromRoot from '../../store/reducers';
 import * as timesAction from '../../store/actions/times';
 import { Observable } from 'rxjs';
 import { UpdateEvent } from '../../models/update-event';
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { HistoryService } from '../../shared/history.service';
 import { KeyListenerService } from '../../shared/key-listener.service';
 
@@ -45,6 +45,16 @@ export class TimeBoardComponent implements OnInit {
       .subscribe(() => {
         this.reCalc();
       });
+  }
+
+  get totalTime(): Observable<string> {
+    return this.list$
+      .pipe(
+        map(list => {
+          const minutes = list.reduce((prev, next) => this.timeService.getTime(next) + prev, 0);
+          return this.timeService.getStringHourMinute(minutes);
+        })
+      );
   }
 
   onUpdateItem(event: UpdateEvent): void {

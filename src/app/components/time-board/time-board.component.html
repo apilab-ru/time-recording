@@ -9,7 +9,7 @@
                      (deleteItem)="onDeleteItem($event)"></app-time-board-list>
 
 <div class="total-line">
-  Всего <span class="total">{{ list$ | async | totalTime }}</span>
+  Всего <span class="total">{{ totalTime | async }}</span>
 </div>
 
 <div class="buttons">
@@ -21,7 +21,7 @@
   </button>
 </div>
 
-<ng-container *ngIf="(calculated$ | async)">
+<ng-container *ngIf="(calculated$ | async)?.length">
   <h3> Рассчитано </h3>
   <table>
     <tr class="calced-line" *ngFor="let item of (calculated$ | async); let i=index">
