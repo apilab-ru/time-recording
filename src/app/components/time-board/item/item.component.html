@@ -4,6 +4,8 @@
 
 <app-time [(ngModel)]="item.to" (ngModelChange)="onChange()"></app-time>
 
+<div class="mobile-separator"></div>
+
 <input type="text" class="task"  [(ngModel)]="item.task" (ngModelChange)="onChange()">
 
 <span class="calc">{{ getTime() }}</span>

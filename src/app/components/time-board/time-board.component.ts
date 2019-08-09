@@ -57,6 +57,10 @@ export class TimeBoardComponent implements OnInit {
       );
   }
 
+  undo(): void {
+    this.store.dispatch(new timesAction.Undo());
+  }
+
   onUpdateItem(event: UpdateEvent): void {
     this.store.dispatch(new timesAction.Update(event));
   }

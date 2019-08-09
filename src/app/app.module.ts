@@ -9,6 +9,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { TimesEffects } from './store/effects/times';
 import { HistoryService } from './shared/history.service';
 import { logger } from './store/reducers/logger';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 export function getMetaReducers(
   historyService: HistoryService
@@ -28,6 +30,7 @@ export function getMetaReducers(
     SharedModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([TimesEffects]),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     {
