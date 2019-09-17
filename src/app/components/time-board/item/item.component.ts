@@ -16,7 +16,8 @@ export class ItemComponent {
   @Input() item: TimeItem = {
     from: null,
     to: null,
-    task: ''
+    task: '',
+    description: null
   };
 
   constructor(private timeService: TimeService) {

@@ -17,3 +17,19 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.btn-copy {
+  background-color: #3f51b5;
+  color: #fff;
+  border-radius: 100%;
+  cursor: pointer;
+  box-shadow: none;
+  border: none;
+  outline: none;
+  width: 25px;
+  height: 25px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

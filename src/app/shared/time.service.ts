@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TimeDto } from '../models/time';
 import { TimeItem } from '../models/time-item';
+import { Calc } from '../models/calc';
 
 @Injectable({
   providedIn: 'root'
@@ -91,8 +92,36 @@ export class TimeService {
     return {
       from: this.getNow(),
       to: null,
-      task: ''
+      task: '',
+      description: null
     };
+  }
+
+  calcTime(timeList: TimeItem[]): Calc[] {
+    const list: Calc[] = [];
+
+    timeList.forEach(item => {
+      const index = list.findIndex(it => it.task === item.task);
+      if (index !== -1) {
+        list[index].time += this.getTime(item);
+        if (list[index].description.indexOf(item.description) === -1) {
+          list[index].description += '; ' + item.description;
+        }
+      } else {
+        list.push({
+          task: item.task,
+          time: this.getTime(item),
+          description: item.description
+        });
+      }
+    });
+
+    list.sort((a, b) => {
+      return a.task === b.task ? 0 :
+        (a.task > b.task ? 1 : -1);
+    });
+
+    return list;
   }
 
 }

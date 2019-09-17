@@ -85,26 +85,9 @@ export class TimeBoardComponent implements OnInit {
     this.list$
       .pipe(take(1))
       .subscribe(timeList => {
-        const list: Calc[] = [];
-
-        timeList.forEach(item => {
-          const index = list.findIndex(it => it.task === item.task);
-          if (index !== -1) {
-            list[index].time += this.timeService.getTime(item);
-          } else {
-            list.push({
-              task: item.task,
-              time: this.timeService.getTime(item)
-            });
-          }
-        });
-
-        list.sort((a, b) => {
-          return a.task === b.task ? 0 :
-            (a.task > b.task ? 1 : -1);
-        });
-
-        this.store.dispatch(new timesAction.SetCalculationList(list));
+        this.store.dispatch(new timesAction.SetCalculationList(
+          this.timeService.calcTime(timeList)
+        ));
       });
   }
 
