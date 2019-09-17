@@ -10,6 +10,6 @@
 
 <span class="calc">{{ getTime() }}</span>
 
-<textarea class="description"  [(ngModel)]="item.description" (ngModelChange)="onChange()"></textarea>
+<textarea class="description" rows="1" [(ngModel)]="item.description" (ngModelChange)="onChange()"></textarea>
 
 <button (click)="delete()" class="btn-del">X</button>

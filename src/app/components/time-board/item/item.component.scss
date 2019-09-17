@@ -15,6 +15,14 @@
     width: 150px;
   }
 
+  .description {
+    border: 1px solid #3f51b5;
+    line-height: 30px;
+    padding: 0 10px;
+    border-radius: 3px;
+    min-width: 230px;
+  }
+
   .calc {
     color: #293366;
     margin-left: 10px;
@@ -36,6 +44,12 @@
 
     .task {
       margin-left: 0;
+      width: calc(100% - 115px);
+    }
+
+    .description {
+      margin-top: 10px;
+      min-width: 0;
       width: calc(100% - 115px);
     }
 
