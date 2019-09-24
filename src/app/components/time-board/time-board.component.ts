@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TimeService } from '../../shared/time.service';
+import { TimeService } from '@api/services/time.service';
 import { TimeItem } from '../../models/time-item';
 import { Calc } from '../../models/calc';
 import { Store } from '@ngrx/store';
@@ -9,8 +9,8 @@ import * as timesAction from '../../store/actions/times';
 import { Observable } from 'rxjs';
 import { UpdateEvent } from '../../models/update-event';
 import { map, take } from 'rxjs/operators';
-import { HistoryService } from '../../shared/history.service';
-import { KeyListenerService } from '../../shared/key-listener.service';
+import { HistoryService } from '@api/services/history.service';
+import { KeyListenerService } from '@api/services/key-listener.service';
 
 @Component({
   selector: 'app-time-board',

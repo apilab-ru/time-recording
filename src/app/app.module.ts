@@ -7,10 +7,10 @@ import { META_REDUCERS, MetaReducer, StoreModule } from '@ngrx/store';
 import { reducers, State } from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { TimesEffects } from './store/effects/times';
-import { HistoryService } from './shared/history.service';
 import { logger } from './store/reducers/logger';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { HistoryService } from '@api/services/history.service';
 
 export function getMetaReducers(
   historyService: HistoryService

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { TimeItem } from '../models/time-item';
-import { TimeService } from './time.service';
+import { TimeService } from '@api/services/time.service';
 
 @Pipe({
   name: 'totalTime'

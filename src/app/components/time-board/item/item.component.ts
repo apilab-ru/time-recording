@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TimeService } from '../../../shared/time.service';
+import { TimeService } from '@api/services/time.service';
 import { TimeItem } from '../../../models/time-item';
 
 @Component({

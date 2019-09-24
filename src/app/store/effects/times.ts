@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { TimeService } from '../../shared/time.service';
+import { TimeService } from '@api/services/time.service';
 import { filter, switchMap } from 'rxjs/operators';
 import * as timesAction from '../../store/actions/times';
 import { of } from 'rxjs';
 import { UNDO } from '../../store/actions/times';
-import { HistoryService } from '../../shared/history.service';
+import { HistoryService } from '@api/services/history.service';
 
 const EffectsInit = '@ngrx/effects/init';
 

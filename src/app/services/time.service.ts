@@ -104,14 +104,14 @@ export class TimeService {
       const index = list.findIndex(it => it.task === item.task);
       if (index !== -1) {
         list[index].time += this.getTime(item);
-        if (list[index].description.indexOf(item.description) === -1) {
+        if (item.description && list[index].description.indexOf(item.description) === -1) {
           list[index].description += '; ' + item.description;
         }
       } else {
         list.push({
           task: item.task,
           time: this.getTime(item),
-          description: item.description
+          description: item.description ? item.description : ''
         });
       }
     });

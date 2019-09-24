@@ -1,6 +1,6 @@
 import { ActionReducer, INIT as StoreInit, MetaReducer } from '@ngrx/store';
 import { State } from './index';
-import { HistoryService } from '../../shared/history.service';
+import { HistoryService } from '@api/services/history.service';
 import { UNDO } from '../actions/times';
 
 const EffectsInit = '@ngrx/effects/init';

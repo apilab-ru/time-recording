@@ -14,7 +14,6 @@ import {
 import { CopyClickDirective } from './copy-click.directive';
 import { TimeBoardComponent } from '../components/time-board/time-board.component';
 import { ItemComponent } from '../components/time-board/item/item.component';
-import { LayoutModule } from '@angular/cdk/layout';
 import { RouterModule } from '@angular/router';
 import { TimeBoardListComponent } from '../components/time-board/list/list.component';
 import { TotalTimePipe } from './total-time.pipe';
@@ -25,7 +24,6 @@ import { TotalTimePipe } from './total-time.pipe';
     FormsModule,
     InputMaskModule,
     InputMaskModule,
-    LayoutModule,
     MatButtonModule,
     MatIconModule,
     MatIconModule,
