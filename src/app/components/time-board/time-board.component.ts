@@ -11,6 +11,8 @@ import { UpdateEvent } from '../../models/update-event';
 import { map, take } from 'rxjs/operators';
 import { HistoryService } from '@api/services/history.service';
 import { KeyListenerService } from '@api/services/key-listener.service';
+import { MatCheckboxChange } from '@angular/material';
+import { ISetting } from '../../models/i-setting';
 
 @Component({
   selector: 'app-time-board',
@@ -20,8 +22,8 @@ import { KeyListenerService } from '@api/services/key-listener.service';
 export class TimeBoardComponent implements OnInit {
 
   list$: Observable<TimeItem[]>;
-
   calculated$: Observable<Calc[]>;
+  setting: ISetting;
 
   constructor(
     private timeService: TimeService,
@@ -31,6 +33,7 @@ export class TimeBoardComponent implements OnInit {
   ) {
     this.list$ = store.select(fromRoot.getList);
     this.calculated$ = store.select(fromRoot.getCalcList);
+    this.setting = this.timeService.getSetting();
   }
 
   ngOnInit(): void {
@@ -86,9 +89,21 @@ export class TimeBoardComponent implements OnInit {
       .pipe(take(1))
       .subscribe(timeList => {
         this.store.dispatch(new timesAction.SetCalculationList(
-          this.timeService.calcTime(timeList)
+          this.timeService.calcTime(timeList, this.timeService.getSetting())
         ));
       });
+  }
+
+  changeSort(event: MatCheckboxChange): void {
+    const setting = this.timeService.getSetting();
+    setting.sort = event.checked;
+    this.timeService.saveSetting(setting);
+  }
+
+  changeGroup(event: MatCheckboxChange): void {
+    const setting = this.timeService.getSetting();
+    setting.groupByDescription = event.checked;
+    this.timeService.saveSetting(setting);
   }
 
   getHourAndMinutes(minutes: number): string {

@@ -4,7 +4,7 @@ import { TimeComponent } from './time/time.component';
 import { InputMaskModule } from 'angular5-input-mask';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCheckboxModule,
   MatIconModule,
   MatListModule,
   MatSidenavModule,
@@ -17,21 +17,20 @@ import { ItemComponent } from '../components/time-board/item/item.component';
 import { RouterModule } from '@angular/router';
 import { TimeBoardListComponent } from '../components/time-board/list/list.component';
 import { TotalTimePipe } from './total-time.pipe';
+import { InputMaskDirective } from './input-mask.directive';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     InputMaskModule,
-    InputMaskModule,
     MatButtonModule,
-    MatIconModule,
     MatIconModule,
     MatListModule,
     MatSidenavModule,
     MatSnackBarModule,
     MatToolbarModule,
-    ReactiveFormsModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
     RouterModule,
   ],
@@ -42,6 +41,7 @@ import { TotalTimePipe } from './total-time.pipe';
     TimeBoardComponent,
     TimeBoardListComponent,
     TotalTimePipe,
+    InputMaskDirective,
   ],
   exports: [
     CopyClickDirective,
@@ -49,7 +49,7 @@ import { TotalTimePipe } from './total-time.pipe';
     ItemComponent,
     TimeBoardComponent,
     TotalTimePipe,
-  ]
+  ],
 })
 export class SharedModule {
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { TimeDto } from '../models/time';
 import { TimeItem } from '../models/time-item';
 import { Calc } from '../models/calc';
+import { ISetting } from '../models/i-setting';
 
 @Injectable({
   providedIn: 'root'
@@ -97,11 +98,32 @@ export class TimeService {
     };
   }
 
-  calcTime(timeList: TimeItem[]): Calc[] {
+  getSetting(): ISetting {
+    const data = localStorage['setting'];
+    if (data) {
+      return JSON.parse(data);
+    } else {
+      return {
+        sort: true,
+        groupByDescription: true
+      };
+    }
+  }
+
+  saveSetting(setting: ISetting): void {
+    localStorage['setting'] = JSON.stringify(setting);
+  }
+
+  calcTime(timeList: TimeItem[], setting: ISetting): Calc[] {
     const list: Calc[] = [];
 
+    const genId = setting.groupByDescription
+      ? (item: TimeItem) => item.task + item.description
+      : (item: TimeItem) => item.task;
+
     timeList.forEach(item => {
-      const index = list.findIndex(it => it.task === item.task);
+      const id = genId(item);
+      const index = list.findIndex(it => it.id === id);
       if (index !== -1) {
         list[index].time += this.getTime(item);
         if (item.description && list[index].description.indexOf(item.description) === -1) {
@@ -109,6 +131,7 @@ export class TimeService {
         }
       } else {
         list.push({
+          id,
           task: item.task,
           time: this.getTime(item),
           description: item.description ? item.description : ''
@@ -116,10 +139,12 @@ export class TimeService {
       }
     });
 
-    list.sort((a, b) => {
-      return a.task === b.task ? 0 :
-        (a.task > b.task ? 1 : -1);
-    });
+    if (setting.sort) {
+      list.sort((a, b) => {
+        return a.task === b.task ? 0 :
+          (a.task > b.task ? 1 : -1);
+      });
+    }
 
     return list;
   }

@@ -19,6 +19,20 @@
   <button mat-raised-button color="accent" (click)="reCalc()">
     Расчитать
   </button>
+  <mat-checkbox
+    class="set"
+    (change)="changeSort($event)"
+    [ngModel]="setting.sort"
+  >
+    Сортировать
+  </mat-checkbox>
+  <mat-checkbox
+    class="set"
+    (change)="changeGroup($event)"
+    [ngModel]="setting.groupByDescription"
+  >
+    Разгруппировать по описанию
+  </mat-checkbox>
 </div>
 
 <ng-container *ngIf="(calculated$ | async)?.length">
