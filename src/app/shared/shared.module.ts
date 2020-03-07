@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TimeComponent } from './time/time.component';
-import { InputMaskModule } from 'angular5-input-mask';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule, MatCheckboxModule,
@@ -17,13 +16,13 @@ import { ItemComponent } from '../components/time-board/item/item.component';
 import { RouterModule } from '@angular/router';
 import { TimeBoardListComponent } from '../components/time-board/list/list.component';
 import { TotalTimePipe } from './total-time.pipe';
-import { InputMaskDirective } from './input-mask.directive';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    InputMaskModule,
+    NgxMaskModule.forRoot(),
     MatButtonModule,
     MatIconModule,
     MatListModule,
@@ -41,7 +40,6 @@ import { InputMaskDirective } from './input-mask.directive';
     TimeBoardComponent,
     TimeBoardListComponent,
     TotalTimePipe,
-    InputMaskDirective,
   ],
   exports: [
     CopyClickDirective,

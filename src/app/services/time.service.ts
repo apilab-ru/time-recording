@@ -19,7 +19,8 @@ export class TimeService {
   }
 
   getTimeFromString(value: string): TimeDto {
-    const [hours, minutes] = value.split(':');
+    const hours = value.substr(0, 2);
+    const minutes = value.substr(2, 2);
 
     if (!hours && hours !== '0' && !minutes) {
       return null;
