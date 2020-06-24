@@ -1,0 +1,55 @@
+:host {
+  display: block;
+}
+
+.input {
+  font-size: 16px;
+  border: 1px solid #3f51b5;
+  line-height: 30px;
+  padding: 0 40px 0 8px;
+  border-radius: 2px;
+  margin-left: 5px;
+}
+
+.btn-save {
+  margin-left: 10px;
+}
+
+.user {
+  display: flex;
+
+  .info {
+    margin-left: 20px;
+    margin-top: 2px;
+  }
+}
+
+.avatar {
+  border-radius: 100%;
+  width: 36px;
+  height: 36px;
+}
+
+.line {
+  display: flex;
+  margin-bottom: 10px;
+
+  .name {
+    width: 100px;
+  }
+}
+
+.btn-with-icon {
+  width: auto;
+
+  &::ng-deep {
+    .mat-button-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    mat-icon {
+      margin-right: 5px;
+    }
+  }
+}

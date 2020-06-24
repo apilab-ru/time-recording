@@ -9,6 +9,7 @@ export const ADD = '[Times] Add';
 export const SET_LIST = '[Times] SetList';
 export const UPDATE = '[Times] Update';
 export const CLEAR = '[Times] Clear';
+export const RELOAD = '[Times] Reload';
 
 export const UNDO = '[Times] Undo';
 export const UNDO_DATA = '[Times] UndoData';
@@ -51,6 +52,13 @@ export class Clear implements Action {
   }
 }
 
+export class Reload implements Action {
+  readonly type = RELOAD;
+
+  constructor() {
+  }
+}
+
 export class SetCalculationList implements Action {
   readonly type = SET_CALCULATION_LIST;
 
@@ -76,4 +84,4 @@ export class UndoData implements Action {
   }
 }
 
-export type Action = Delete | Add | Update | Clear | SetCalculationList | DeleteCalculationItem | SetList | Undo | UndoData;
+export type Action = Delete | Add | Update | Clear | Reload | SetCalculationList | DeleteCalculationItem | SetList | Undo | UndoData;

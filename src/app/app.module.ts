@@ -11,6 +11,8 @@ import { logger } from './store/reducers/logger';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HistoryService } from '@api/services/history.service';
+import { JiraIntegrationComponent } from './components/jira-integration/jira-integration.component';
+import { HttpClientModule } from '@angular/common/http';
 
 export function getMetaReducers(
   historyService: HistoryService
@@ -31,6 +33,7 @@ export function getMetaReducers(
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([TimesEffects]),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    HttpClientModule,
   ],
   providers: [
     {

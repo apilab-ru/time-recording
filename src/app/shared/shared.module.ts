@@ -17,6 +17,8 @@ import { RouterModule } from '@angular/router';
 import { TimeBoardListComponent } from '../components/time-board/list/list.component';
 import { TotalTimePipe } from './total-time.pipe';
 import { NgxMaskModule } from 'ngx-mask';
+import { JiraIntegrationComponent } from '../components/jira-integration/jira-integration.component';
+import { TimeDtoPipe } from './time-dto.pipe';
 
 @NgModule({
   imports: [
@@ -40,6 +42,8 @@ import { NgxMaskModule } from 'ngx-mask';
     TimeBoardComponent,
     TimeBoardListComponent,
     TotalTimePipe,
+    JiraIntegrationComponent,
+    TimeDtoPipe,
   ],
   exports: [
     CopyClickDirective,
@@ -47,6 +51,8 @@ import { NgxMaskModule } from 'ngx-mask';
     ItemComponent,
     TimeBoardComponent,
     TotalTimePipe,
+    JiraIntegrationComponent,
+    TimeDtoPipe,
   ],
 })
 export class SharedModule {

@@ -4,7 +4,7 @@ import { TimeService } from '@api/services/time.service';
 import { filter, switchMap } from 'rxjs/operators';
 import * as timesAction from '../../store/actions/times';
 import { of } from 'rxjs';
-import { UNDO } from '../../store/actions/times';
+import { RELOAD, UNDO } from '../../store/actions/times';
 import { HistoryService } from '@api/services/history.service';
 
 const EffectsInit = '@ngrx/effects/init';
@@ -34,6 +34,15 @@ export class TimesEffects {
     switchMap(() => {
       const state = this.historyService.prevent();
       return of(new timesAction.UndoData(state));
+    })
+  );
+
+  @Effect()
+  reloadState$ = this.actions$.pipe(
+    filter(action => action.type === RELOAD),
+    switchMap(() => {
+      const list = prompt('Set list');
+      return of(new timesAction.SetList(JSON.parse(list)));
     })
   );
 

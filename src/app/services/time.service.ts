@@ -3,6 +3,7 @@ import { TimeDto } from '../models/time';
 import { TimeItem } from '../models/time-item';
 import { Calc } from '../models/calc';
 import { ISetting } from '../models/i-setting';
+import { LINK_TO_TASK } from '../shared/const';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class TimeService {
     if (!time) {
       return '';
     }
-    return `${time.hour}:${time.minute.toString().padStart(2, '0')}`;
+    return `${time.hour.toString().padStart(2, '0')}:${time.minute.toString().padStart(2, '0')}`;
   }
 
   getTimeFromString(value: string): TimeDto {
@@ -106,7 +107,8 @@ export class TimeService {
     } else {
       return {
         sort: true,
-        groupByDescription: true
+        groupByDescription: true,
+        timeReorder: false,
       };
     }
   }
@@ -118,12 +120,15 @@ export class TimeService {
   calcTime(timeList: TimeItem[], setting: ISetting): Calc[] {
     const list: Calc[] = [];
 
-    const genId = setting.groupByDescription
-      ? (item: TimeItem) => item.task + item.description
-      : (item: TimeItem) => item.task;
+    const genId = (item: TimeItem, task: string) => {
+      return setting.groupByDescription
+        ? task + (item.description && item.description.trim())
+        : task;
+    };
 
     timeList.forEach(item => {
-      const id = genId(item);
+      const task = LINK_TO_TASK[item.task] || item.task;
+      const id = genId(item, task);
       const index = list.findIndex(it => it.id === id);
       if (index !== -1) {
         list[index].time += this.getTime(item);
@@ -133,7 +138,8 @@ export class TimeService {
       } else {
         list.push({
           id,
-          task: item.task,
+          timeStart: this.getMinutes(item.from),
+          task: task,
           time: this.getTime(item),
           description: item.description ? item.description : ''
         });
@@ -146,6 +152,17 @@ export class TimeService {
           (a.task > b.task ? 1 : -1);
       });
     }
+
+    // TODO
+    /*if (setting.timeReorder) {
+      const original = list;
+      list = [];
+      original.forEach(item => {
+        const from = item.timeStart;
+        const to = item.timeStart + item.time;
+      });
+      console.log('xxx list', list);
+    }*/
 
     return list;
   }

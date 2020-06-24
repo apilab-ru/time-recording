@@ -1,6 +1,9 @@
 <button mat-raised-button (click)="clear()">
   Очистить список
 </button>
+<button class="btn-with-icon" mat-icon-button label="Reload" (click)="reload()">
+  <mat-icon>assignment return</mat-icon>
+</button>
 <br>
 <br>
 
@@ -9,7 +12,8 @@
                      (deleteItem)="onDeleteItem($event)"></app-time-board-list>
 
 <div class="total-line">
-  Всего <span class="total">{{ totalTime | async }}</span>
+  Всего <span class="total">{{ totalTime$ | async }}</span>
+  <span> / {{ totalHours$ | async }}</span>
 </div>
 
 <div class="buttons">
@@ -18,6 +22,11 @@
   </button>
   <button mat-raised-button color="accent" (click)="reCalc()">
     Расчитать
+  </button>
+  <button
+    *ngIf="(isJiraReady$ | async) && (calculated$ | async)?.length"
+    mat-raised-button color="basic" (click)="export()">
+    Выгрузить в jira
   </button>
   <mat-checkbox
     class="set"
@@ -33,12 +42,22 @@
   >
     Разгруппировать по описанию
   </mat-checkbox>
+  <mat-checkbox
+    class="set"
+    (change)="changeTimeReorder($event)"
+    [ngModel]="setting.timeReorder"
+  >
+    Уплотнить
+  </mat-checkbox>
 </div>
 
 <ng-container *ngIf="(calculated$ | async)?.length">
   <h3> Рассчитано </h3>
   <table>
     <tr class="calculated-line" *ngFor="let item of (calculated$ | async); let i=index">
+      <td class="copy-elem name" [appCopyClick]="item.timeStart | timeDto">
+        {{ item.timeStart | timeDto }}
+      </td>
       <td class="copy-elem name" [appCopyClick]="item.task">
         {{ item.task }}
       </td>

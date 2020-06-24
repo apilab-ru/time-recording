@@ -2,6 +2,16 @@ body {
   margin: 0;
 }
 
+.jira-integration-box {
+  position: relative;
+  margin: 20px 40px 0 0;
+}
+
+.jira-integration {
+  position: absolute;
+  right: 0;
+}
+
 .btn-del {
   background-color: #ff4081;
   color: #fff;
