@@ -54,7 +54,7 @@ export class JiraIntegrationComponent implements OnInit {
   }
 
   addMapItem(): void {
-    this.jiraStoreService.addTaskMap();
+    this.taskMap.push({key: null, value: null});
   }
 
   deleteTaskItem(index: number): void {

@@ -89,15 +89,6 @@ export class JiraStoreService {
     this.saveStore(this.cred.getValue());
   }
 
-  addTaskMap(): void {
-    const value = {
-      ...this.taskMap.getValue(),
-      'new': null
-    };
-    this.taskMap.next(value);
-    this.saveTaskMap(value);
-  }
-
   updateTaskMap(taskMap: TaskMap): void {
     this.taskMap.next(taskMap);
     this.saveTaskMap(taskMap);
