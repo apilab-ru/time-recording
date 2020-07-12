@@ -3,7 +3,8 @@ import { TimeDto } from '../models/time';
 import { TimeItem } from '../models/time-item';
 import { Calc } from '../models/calc';
 import { ISetting } from '../models/i-setting';
-import { LINK_TO_TASK } from '../shared/const';
+import { JiraStoreService } from '@api/services/jira-store.service';
+import { TaskMap } from '@api/services/jira-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -117,7 +118,7 @@ export class TimeService {
     localStorage['setting'] = JSON.stringify(setting);
   }
 
-  calcTime(timeList: TimeItem[], setting: ISetting): Calc[] {
+  calcTime(timeList: TimeItem[], setting: ISetting, taskMap: TaskMap): Calc[] {
     const list: Calc[] = [];
 
     const genId = (item: TimeItem, task: string) => {
@@ -127,7 +128,7 @@ export class TimeService {
     };
 
     timeList.forEach(item => {
-      const task = LINK_TO_TASK[item.task] || item.task;
+      const task = taskMap[item.task] || item.task;
       const id = genId(item, task);
       const index = list.findIndex(it => it.id === id);
       if (index !== -1) {

@@ -9,6 +9,10 @@
   padding: 0 40px 0 8px;
   border-radius: 2px;
   margin-left: 5px;
+
+  &.-mini {
+    width: 100px;
+  }
 }
 
 .btn-save {
@@ -33,10 +37,15 @@
 .line {
   display: flex;
   margin-bottom: 10px;
+  align-items: center;
 
   .name {
     width: 100px;
   }
+}
+
+.btn-del {
+  margin-left: 10px;
 }
 
 .btn-with-icon {

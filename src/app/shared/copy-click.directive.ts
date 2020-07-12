@@ -12,7 +12,9 @@ export class CopyClickDirective {
     event.preventDefault();
     event.stopPropagation();
     this.copy(this.appCopyClick);
-    this.snackBar.open(`Скопированно: ${this.appCopyClick}`);
+    this.snackBar.open(`Скопированно: ${this.appCopyClick}`, null, {
+      duration: 20000
+    });
   }
 
   constructor(private snackBar: MatSnackBar) {

@@ -106,7 +106,7 @@ export class TimeBoardComponent implements OnInit {
       .pipe(take(1))
       .subscribe(timeList => {
         this.store.dispatch(new timesAction.SetCalculationList(
-          this.timeService.calcTime(timeList, this.timeService.getSetting())
+          this.timeService.calcTime(timeList, this.timeService.getSetting(), this.jiraStoreService.getTaskMap())
         ));
       });
   }

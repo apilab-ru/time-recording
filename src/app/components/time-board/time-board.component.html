@@ -42,13 +42,13 @@
   >
     Разгруппировать по описанию
   </mat-checkbox>
-  <mat-checkbox
+  <!--mat-checkbox
     class="set"
     (change)="changeTimeReorder($event)"
     [ngModel]="setting.timeReorder"
   >
     Уплотнить
-  </mat-checkbox>
+  </mat-checkbox-->
 </div>
 
 <ng-container *ngIf="(calculated$ | async)?.length">

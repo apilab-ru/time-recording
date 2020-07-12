@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { JiraStoreService } from '@api/services/jira-store.service';
 import { Observable } from 'rxjs';
-import { JiraUser } from '@api/services/jira-api.service';
+import { JiraUser, TaskMap } from '@api/services/jira-api.service';
+
+interface KeyArray {
+  key: string;
+  value: string;
+}
 
 @Component({
   selector: 'app-jira-integration',
@@ -17,15 +22,19 @@ export class JiraIntegrationComponent implements OnInit {
   login: string;
   password: string;
 
+  taskMap: { key: string, value: string }[];
+
   constructor(
-    private jiraStoreService: JiraStoreService,
-  ) { }
+    private jiraStoreService: JiraStoreService
+  ) {
+  }
 
   ngOnInit() {
     this.isReady$ = this.jiraStoreService.isReady$;
     this.user$ = this.jiraStoreService.user$;
+    this.jiraStoreService.taskMap$.subscribe(list => this.taskMap = this.fromMapToArray(list));
 
-    this.jiraStoreService.cred$.subscribe(({domain, login, password}) => {
+    this.jiraStoreService.cred$.subscribe(({ domain, login, password }) => {
       this.domain = domain;
       this.login = login;
       this.password = password;
@@ -44,4 +53,29 @@ export class JiraIntegrationComponent implements OnInit {
     this.jiraStoreService.saveCred(null);
   }
 
+  addMapItem(): void {
+    this.jiraStoreService.addTaskMap();
+  }
+
+  deleteTaskItem(index: number): void {
+    this.taskMap.splice(index, 1);
+    this.jiraStoreService.updateTaskMap(
+      this.fromArrayToMap(this.taskMap)
+    );
+  }
+
+  updateTaskMap(): void {
+    this.jiraStoreService.updateTaskMap(this.fromArrayToMap(this.taskMap));
+  }
+
+  private fromMapToArray(obj: TaskMap): KeyArray[] {
+    return Object.keys(obj).map(key => ({ key, value: obj[key] }));
+  }
+
+  private fromArrayToMap(list: KeyArray[]): TaskMap {
+    return list.reduce((obj, item) => {
+      obj[item.key] = item.value;
+      return obj;
+    }, {});
+  }
 }

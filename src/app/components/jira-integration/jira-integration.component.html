@@ -28,3 +28,18 @@
     </button>
   </div>
 </div>
+<div class="map-list">
+  <h2>Task Mapping</h2>
+  <div class="line" *ngFor="let item of taskMap; let index = index">
+    <input class="input -mini" [(ngModel)]="item.key">
+    =>
+    <input class="input" [(ngModel)]="item.value">
+    <button class="btn-del" (click)="deleteTaskItem(index)">X</button>
+  </div>
+  <button mat-raised-button color="primary" (click)="addMapItem()">
+    + Добавить
+  </button>
+  <button mat-raised-button color="accent" (click)="updateTaskMap()">
+    Сохранить
+  </button>
+</div>
