@@ -35,26 +35,26 @@ export function getMetaReducers(
   imports: [
     CommonModule,
     FormsModule,
-    NgxMaskModule.forRoot(),
     MatButtonModule,
+    MatCheckboxModule,
     MatIconModule,
     MatSnackBarModule,
-    MatCheckboxModule,
+    NgxMaskModule.forRoot(),
     ReactiveFormsModule,
     RouterModule,
     StoreModule.forRoot(reducers),
   ],
   declarations: [
+    BoardPageComponent,
     CopyClickDirective,
-    TimeComponent,
     ItemComponent,
+    TaskMapItemComponent,
+    TaskMappingComponent,
     TimeBoardComponent,
     TimeBoardListComponent,
-    TotalTimePipe,
+    TimeComponent,
     TimeDtoPipe,
-    TaskMappingComponent,
-    BoardPageComponent,
-    TaskMapItemComponent
+    TotalTimePipe,
   ],
   providers: [
     {
