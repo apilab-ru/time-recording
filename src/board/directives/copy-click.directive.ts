@@ -1,5 +1,5 @@
 import { Directive, HostListener, Input } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Directive({
   selector: '[appCopyClick]'

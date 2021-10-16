@@ -7,14 +7,14 @@ import * as fromRoot from '../../store/reducers';
 import * as actions from '../../store/actions';
 import { combineLatest, Observable } from 'rxjs';
 import { UpdateEvent } from '../../models/update-event';
-import { map, switchMap, take } from 'rxjs/operators';
-import { MatCheckboxChange } from '@angular/material';
+import { map, take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Setting } from '../../models/setting';
 import { TimeService } from '../../services/time.service';
 import { HistoryService } from '../../services/history.service';
 import { KeyListenerService } from '../../services/key-listener.service';
 import { TaskMapService } from '../../services/task-map.service';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-time-board',
