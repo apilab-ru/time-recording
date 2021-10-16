@@ -137,6 +137,11 @@ export class TimeService {
   }
 
   static getState(): TimeState {
+    const oldState = this.getOldState();
+    if (oldState) {
+      return oldState;
+    }
+
     let data;
     try {
       data = JSON.parse(localStorage['times']);
@@ -155,6 +160,23 @@ export class TimeService {
     }
 
     return data;
+  }
+
+  static getOldState(): TimeState | null {
+    let list;
+    try {
+      list = JSON.parse(localStorage['today']);
+    } catch (e) {
+    }
+
+    if (list?.length) {
+      delete localStorage['today'];
+
+      return {
+        list,
+        calculatedList: [],
+      };
+    }
   }
 
   static saveState(state: TimeState): void {

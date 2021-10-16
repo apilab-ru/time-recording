@@ -62,6 +62,11 @@ export class TaskMapService {
   }
 
   static loadTaskMap(): TaskMapState {
+    const oldData = this.loadOldTaskMap();
+    if (oldData) {
+      return oldData;
+    }
+
     try {
       const data = JSON.parse(localStorage.getItem(KEY_TASK_MAP));
       if (data) {
@@ -73,5 +78,27 @@ export class TaskMapService {
     return {
       list: []
     };
+  }
+
+  private static loadOldTaskMap(): TaskMapState | null {
+    let data;
+    try {
+      data = JSON.parse(localStorage.getItem('jira-integration-task-map'));
+    } catch (e) {
+    }
+
+    if (!data) {
+      return null;
+    }
+
+    delete localStorage['jira-integration-task-map'];
+
+    return {
+      list: this.fromMapToArray(data)
+    };
+  }
+
+  private static fromMapToArray(obj: TaskMap): TaskMapItem[] {
+    return Object.keys(obj).map(key => ({ key, value: obj[key] }));
   }
 }
