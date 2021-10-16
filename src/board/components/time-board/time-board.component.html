@@ -25,11 +25,6 @@
   <button mat-raised-button color="accent" (click)="reCalc()">
     Рассчитать
   </button>
-  <button
-    *ngIf="(isJiraReady$ | async) && (calculated$ | async)?.length"
-    mat-raised-button color="basic" (click)="export()">
-    Выгрузить в jira
-  </button>
   <mat-checkbox
     class="set"
     (change)="changeSort($event)"
