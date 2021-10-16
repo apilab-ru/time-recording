@@ -12,7 +12,7 @@ export class CopyClickDirective {
     event.preventDefault();
     event.stopPropagation();
     this.copy(this.appCopyClick);
-    this.snackBar.open(`Скопировано: ${this.appCopyClick}`, null, {
+    this.snackBar.open(`Copped: ${this.appCopyClick}`, null, {
       duration: 20000
     });
   }
@@ -20,16 +20,16 @@ export class CopyClickDirective {
   constructor(private snackBar: MatSnackBar) {
   }
 
-  copy(str): void {
-    const tmp = document.createElement('INPUT'); // Создаём новый текстовой input
-    const focus = document.activeElement; // Получаем ссылку на элемент в фокусе (чтобы не терять фокус)
+  copy(str: string): void {
+    const tmp = document.createElement('INPUT');
+    const focus = document.activeElement;
 
-    tmp['value'] = str; // Временному input вставляем текст для копирования
+    tmp['value'] = str;
 
-    document.body.appendChild(tmp); // Вставляем input в DOM
-    tmp['select'](); // Выделяем весь текст в input
-    document.execCommand('copy'); // Магия! Копирует в буфер выделенный текст (см. команду выше)
-    document.body.removeChild(tmp); // Удаляем временный input
-    focus['focus'](); // Возвращаем фокус туда, где был
+    document.body.appendChild(tmp);
+    tmp['select']();
+    document.execCommand('copy');
+    document.body.removeChild(tmp);
+    focus['focus']();
   }
 }
