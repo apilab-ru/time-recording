@@ -16,7 +16,6 @@ import { TimeBoardListComponent } from './components/list/list.component';
 import { TimeDtoPipe } from './pipes/time-dto.pipe';
 import { TaskMappingComponent } from './components/task-mapping/task-mapping.component';
 import { BoardPageComponent } from './components/board-page/board-page.component';
-import { JiraIntegrationModule } from '../jira-integration/jira-integration.module';
 import { META_REDUCERS, MetaReducer, StoreModule } from '@ngrx/store';
 import { HistoryService } from './services/history.service';
 import { reducers } from './store/reducers';
@@ -43,10 +42,7 @@ export function getMetaReducers(
     MatCheckboxModule,
     ReactiveFormsModule,
     RouterModule,
-
     StoreModule.forRoot(reducers),
-
-    JiraIntegrationModule
   ],
   declarations: [
     CopyClickDirective,

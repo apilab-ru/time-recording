@@ -14,7 +14,6 @@ import { Setting } from '../../models/setting';
 import { TimeService } from '../../services/time.service';
 import { HistoryService } from '../../services/history.service';
 import { KeyListenerService } from '../../services/key-listener.service';
-import { JiraStoreService } from '../../../jira-integration/services/jira-store.service';
 import { TaskMapService } from '../../services/task-map.service';
 
 @Component({
@@ -30,21 +29,17 @@ export class TimeBoardComponent implements OnInit {
   totalTime$: Observable<string>;
   totalHours$: Observable<string>;
 
-  isJiraReady$: Observable<boolean>;
-
   constructor(
     private timeService: TimeService,
     private store: Store<State>,
     private historyService: HistoryService,
     private keyListenerService: KeyListenerService,
-    private jiraStoreService: JiraStoreService,
     private snackBar: MatSnackBar,
     private taskMapService: TaskMapService
   ) {
     this.list$ = store.select(fromRoot.getList);
     this.calculated$ = store.select(fromRoot.getCalcList);
     this.setting = this.timeService.getSetting();
-    this.isJiraReady$ = this.jiraStoreService.isReady$;
   }
 
   ngOnInit(): void {
@@ -140,31 +135,4 @@ export class TimeBoardComponent implements OnInit {
   delete(index: number): void {
     this.store.dispatch(new actions.DeleteCalculationItem(index));
   }
-
-  export(): void {
-    const date = new Date();
-    const prepareDate = date.getFullYear()
-      + '-' + (date.getMonth() + 1).toString().padStart(2, '0')
-      + '-' + (date.getDate()).toString().padStart(2, '0');
-    const dateString = prompt('Введите дату в формате yyyy-mm-dd', prepareDate);
-
-    this.calculated$.pipe(
-      take(1),
-      switchMap(list => this.jiraStoreService.export(list, dateString).pipe(
-        map(response => ({ response, list })))
-      )
-    ).subscribe(({ response, list }) => {
-      let hasError = false;
-      response.forEach((item, index) => {
-        if (item['errorMessages']) {
-          hasError = true;
-          this.snackBar.open('Error ' + JSON.stringify(list[index]));
-        }
-      });
-      if (!hasError) {
-        this.snackBar.open('Успешно экспортировано');
-      }
-    });
-  }
-
 }
