@@ -24,7 +24,7 @@
     "@angular/router": "12.2.10",
     "@angular/service-worker": "12.2.10",
     "@ngrx/store": "12.5.0",
-    "@types/lodash": "^4.14.175",
+    "@types/lodash": "^4.14.176",
     "core-js": "^2.6.11",
     "lodash": "^4.17.21",
     "ngx-mask": "12.0.0",
